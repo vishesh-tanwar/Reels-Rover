@@ -1,6 +1,7 @@
 import User from "../model/userModel.js";
 import Stripe from 'stripe'
 import dotenv from 'dotenv' 
+import jwt from "jsonwebtoken"
 dotenv.config() ;
 
 const stripe = new Stripe(process.env.SECRET_KEY) 
