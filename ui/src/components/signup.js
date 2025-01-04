@@ -22,7 +22,10 @@ const Signup = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post("http://localhost:9000/user/signUp", {
+            const response = await axios.post(
+                // "http://localhost:9000/user/signUp",
+                "https://reels-rover-server.onrender.com/user/signUp", 
+                {
                 name,
                 email,
                 password,

@@ -13,7 +13,8 @@ const Watchlist = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:9000/user/watchlist",
+          // "http://localhost:9000/user/watchlist",
+          "https://reels-rover-server.onrender.com/user/watchlist",
           { withCredentials: true }
         );
         if (response.data) {
@@ -40,7 +41,8 @@ const Watchlist = () => {
 
     try {
       await axios.delete(
-        `http://localhost:9000/user/deleteFromCart/${movieId}`,
+        // `http://localhost:9000/user/deleteFromCart/${movieId}`,
+        `https://reels-rover-server.onrender.com/user/deleteFromCart/${movieId}`,
         { withCredentials: true }
       );
       const updatedWatchlist = watchlist.filter(
@@ -69,7 +71,8 @@ const Watchlist = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:9000/user/makepayment/create-checkout-session",
+        // "http://localhost:9000/user/makepayment/create-checkout-session",
+        "https://reels-rover-server.onrender.com/user/makepayment/create-checkout-session",
         body,
         { withCredentials: true }
       );

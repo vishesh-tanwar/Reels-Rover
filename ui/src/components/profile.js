@@ -5,7 +5,10 @@ const Profile = () => {
     const [data,setData] = useState({name:'',email:''}) ; 
     useEffect(()=>{
         const fetchData = async() => {
-            const response = await axios.get('http://localhost:9000/user/profile',{withCredentials:true}) ;
+            const response = await axios.get(
+                // 'http://localhost:9000/user/profile',
+                'https://reels-rover-server.onrender.com/user/profile',
+                {withCredentials:true}) ;
             setData(response.data) ; 
         }
         fetchData() ; 

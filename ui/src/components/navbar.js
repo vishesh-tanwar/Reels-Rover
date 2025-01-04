@@ -1,64 +1,3 @@
-// import { useNavigate } from "react-router-dom";
-// import Cookies from "js-cookie";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const Navbar = () => {
-//   const navigate = useNavigate();
-//   const [authenticated, setAuthenticated] = useState(false);
-//   const [user, setUser] = useState(null);
-
-//   useEffect(() => {
-//     const checkAuth = async () => {
-//       try {
-//         const response = await axios.get('http://localhost:9000/user/status', { withCredentials: true });
-//         setAuthenticated(response.data.authenticated);
-//         setUser(response.data.user);
-//       } catch (error) {
-//         setAuthenticated(false);
-//         setUser(null);
-//       }
-//     };
-
-//     checkAuth();
-//   }, []);
-
-// const handleLogout = async () => {
-//     try {
-//       // Send a request to the backend to log out and remove the token
-//       await axios.post('http://localhost:9000/user/logout', {withCredentials : true}) ; 
-//       setAuthenticated(false);
-//         setUser(null);
-//       navigate('/');
-//     } catch (error) {
-//       console.error("Logout error: ", error);
-//     }
-//   };
-  
-
-//   return (
-//     <div style={{backgroundColor : "gold"}}> 
-
-//       {authenticated ? (
-//         <div style={{justifyContent : "space-between", display: "flex"}}>
-//         <div>  
-//           <span onClick={() => navigate("/home")}>Home</span>
-//           <span onClick={() => navigate("/watchlist")}>Watchlist</span>
-//           <span onClick={() => navigate("/profile")}>Profile</span>
-//         </div> 
-//         <div> 
-//           <span onClick={handleLogout}>Logout</span>
-//         </div>
-//         </div> 
-//       ) : (
-//         <span onClick={() => navigate("/")}>Login</span>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Navbar;
-
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -72,7 +11,10 @@ const Navbar = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get('http://localhost:9000/user/status', { withCredentials: true });
+        const response = await axios.get(
+          // 'http://localhost:9000/user/status', 
+          "https://reels-rover-server.onrender.com/user/status",
+          { withCredentials: true });
         setAuthenticated(response.data.authenticated);
         setUser(response.data.user);
       } catch (error) {
@@ -86,7 +28,10 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:9000/user/logout', { withCredentials: true });
+      await axios.post(
+        // 'http://localhost:9000/user/logout',
+        'https://reels-rover-server.onrender.com/user/logout', 
+        { withCredentials: true });
       setAuthenticated(false);
       setUser(null);
       navigate('/');

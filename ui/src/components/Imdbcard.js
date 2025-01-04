@@ -23,11 +23,16 @@ const Imdbcard = ({ movie }) => {
       borderRadius: '8px 8px 0 0',
     };
 
+    // const handleClick = async() => {
+    //     await axios.post('http://localhost:9000/user/addToWatchlist', 
+    //     {name : movie.title, image : `https://image.tmdb.org/t/p/w500${movie.poster_path}`,price : movie.price},{withCredentials:true}) 
+    //       setAddedToCart(true) 
+    // } 
     const handleClick = async() => {
-        await axios.post('http://localhost:9000/user/addToWatchlist', 
-        {name : movie.title, image : `https://image.tmdb.org/t/p/w500${movie.poster_path}`,price : movie.price},{withCredentials:true}) 
-          setAddedToCart(true) 
-    } 
+          await axios.post('https://reels-rover-server.onrender.com/user/addToWatchlist', 
+          {name : movie.title, image : `https://image.tmdb.org/t/p/w500${movie.poster_path}`,price : movie.price},{withCredentials:true}) 
+            setAddedToCart(true) 
+      } 
 
     return (
       <div style={cardStyle} > 
