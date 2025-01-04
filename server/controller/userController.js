@@ -30,7 +30,7 @@ export const userLogin = async (req, res) => {
         res.cookie('token', token, { 
             httpOnly: true ,
             secure : true ,
-            samSite : "none",
+            samSite : "None",
             maxAge:20 * 24 * 60 * 60 * 1000
         });
         return res.status(200).send('Login successful');
