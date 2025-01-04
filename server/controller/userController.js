@@ -45,15 +45,30 @@ export const profile = async(req,res) => {
     res.status(200).send(data) ;
 }
 
-export const status = (req,res) => {
-    res.status(200).json({ authenticated: true, user: req.user }); 
-};  
+// export const status = (req,res) => {
+//     res.status(200).json({ authenticated: true, user: req.user }); 
+// };  
+
+export const status = (req, res) => {
+    const token = req.cookies.token; // Get token from cookies
+    if (!token) {
+        console.error("No token found in cookies");
+        return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_PASSWORD); // Verify token
+        console.log("Decoded token:", decoded); // Debugging
+        return res.status(200).json({ id: decoded.id });
+    } catch (error) {
+        console.error("JWT Verification Error:", error.message);
+        return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    }
+};
 
 export const logout = (req,res) => {
     res.clearCookie('token', { 
         httpOnly: true,  // Ensures the cookie cannot be accessed via JavaScript
         secure : true , 
-        path: '/',       // Make sure to clear the cookie from the right path
       });
     
       res.status(200).json({ message: 'Logged out successfully' });
