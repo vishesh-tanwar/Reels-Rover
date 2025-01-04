@@ -21,11 +21,6 @@ app.use(express.json())
 //     credentials : true 
 // })) 
 
-app.use(cors({
-    origin : "https://reels-rover-ui.onrender.com" , 
-    credentials : true 
-})) 
-
 app.use('/user',userRoutes);
 
 app.listen(9000,async()=>{ 
