@@ -27,13 +27,16 @@ export const userLogin = async (req, res) => {
         }
 
         const token = userData.generateJWTToken();
-        res.cookie('token', token, { 
-            httpOnly: true ,
-            secure : true ,
-            samSite : "None",
-            maxAge:20 * 24 * 60 * 60 * 1000
-        });
-        return res.status(200).send('Login successful');
+        // res.cookie('token', token, { httpOnly: true });
+        res.cookie("token", token, { 
+            httpOnly: true, // Prevents JavaScript access
+            secure: true, // Use 'false' for localhost (set 'true' for HTTPS in production)
+            sameSite: "",
+            maxAge: 20 * 24 * 60 * 60 * 1000, // 20 days
+          });
+        if (token){
+            return res.status(200).send('Login successful');
+        }
     } catch (e) {
         console.log(e);
         return res.status(500).send('Internal Server Error');
@@ -45,10 +48,6 @@ export const profile = async(req,res) => {
     const data = await User.findById(userID) ;  
     res.status(200).send(data) ;
 }
-
-// export const status = (req,res) => {
-//     res.status(200).json({ authenticated: true, user: req.user }); 
-// };  
 
 export const status = (req, res) => {
     const token = req.cookies.token; // Get token from cookies
@@ -69,9 +68,8 @@ export const status = (req, res) => {
 export const logout = (req,res) => {
     res.clearCookie('token', { 
         httpOnly: true,  // Ensures the cookie cannot be accessed via JavaScript
-        secure : true , 
+        secure:true       // Make sure to clear the cookie from the right path
       });
-    
       res.status(200).json({ message: 'Logged out successfully' });
 }
 
