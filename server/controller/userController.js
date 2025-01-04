@@ -26,7 +26,12 @@ export const userLogin = async (req, res) => {
         }
 
         const token = userData.generateJWTToken();
-        res.cookie('token', token, { httpOnly: true });
+        res.cookie('token', token, { 
+            httpOnly: true ,
+            secure : true ,
+            samSite : "none",
+            maxAge:20 * 24 * 60 * 60 * 1000
+        });
         return res.status(200).send('Login successful');
     } catch (e) {
         console.log(e);
@@ -47,6 +52,7 @@ export const status = (req,res) => {
 export const logout = (req,res) => {
     res.clearCookie('token', { 
         httpOnly: true,  // Ensures the cookie cannot be accessed via JavaScript
+        secure : true , 
         path: '/',       // Make sure to clear the cookie from the right path
       });
     
